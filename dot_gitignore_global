@@ -63,3 +63,4 @@ temp/
 # Claude
 .claude/
 .claude
+**/.claude/.cc-writes/
