@@ -62,6 +62,9 @@
       "Read(~/.config/gcloud/**)",
       "Read(~/.docker/config.json)",
       "Read(~/Library/Keychains/**)"
+    ],
+    "additionalDirectories": [
+      "~/dev/devcenter-work"
     ]
   },
   "sandbox": {
@@ -72,7 +75,17 @@
     "excludedCommands": [
       "ssh *",
       "scp *",
-      "rsync *"
+      "rsync *",
+      "git commit *",
+      "git tag *",
+      "git fetch *",
+      "git pull *",
+      "git push *",
+      "gh *",
+      "glab *",
+      "devcenter *",
+      "docker *",
+      "codex *"
     ],
     "filesystem": {
       "denyRead": [
@@ -105,28 +118,96 @@
     },
     "credentials": {
       "files": [
-        { "path": "~/.aws", "mode": "deny" },
-        { "path": "~/.gnupg", "mode": "deny" },
-        { "path": "~/.kube", "mode": "deny" },
-        { "path": "~/.config/gcloud", "mode": "deny" },
-        { "path": "~/.docker/config.json", "mode": "deny" },
-        { "path": "~/Library/Keychains", "mode": "deny" }
+        {
+          "path": "~/.aws",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.gnupg",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.kube",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/gcloud",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.docker/config.json",
+          "mode": "deny"
+        },
+        {
+          "path": "~/Library/Keychains",
+          "mode": "deny"
+        }
       ],
       "envVars": [
-        { "name": "ANTHROPIC_API_KEY", "mode": "deny" },
-        { "name": "OPENAI_API_KEY", "mode": "deny" },
-        { "name": "GITHUB_TOKEN", "mode": "mask", "injectHosts": ["github.com", "api.github.com"] },
-        { "name": "GH_TOKEN", "mode": "mask", "injectHosts": ["github.com", "api.github.com"] },
-        { "name": "AWS_ACCESS_KEY_ID", "mode": "deny" },
-        { "name": "AWS_SECRET_ACCESS_KEY", "mode": "deny" },
-        { "name": "AWS_SESSION_TOKEN", "mode": "deny" },
-        { "name": "CLOUDFLARE_API_TOKEN", "mode": "deny" },
-        { "name": "VERCEL_TOKEN", "mode": "deny" },
-        { "name": "NPM_TOKEN", "mode": "deny" },
-        { "name": "PYPI_TOKEN", "mode": "deny" },
-        { "name": "DATABASE_URL", "mode": "deny" },
-        { "name": "POSTGRES_URL", "mode": "deny" },
-        { "name": "REDIS_URL", "mode": "deny" }
+        {
+          "name": "ANTHROPIC_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "mask",
+          "injectHosts": [
+            "github.com",
+            "api.github.com"
+          ]
+        },
+        {
+          "name": "GH_TOKEN",
+          "mode": "mask",
+          "injectHosts": [
+            "github.com",
+            "api.github.com"
+          ]
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SESSION_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "CLOUDFLARE_API_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "VERCEL_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "NPM_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "PYPI_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "DATABASE_URL",
+          "mode": "deny"
+        },
+        {
+          "name": "POSTGRES_URL",
+          "mode": "deny"
+        },
+        {
+          "name": "REDIS_URL",
+          "mode": "deny"
+        }
       ]
     }
   },
@@ -179,5 +260,8 @@
     }
   },
   "skipWorkflowUsageWarning": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "env": {
+    "UV_CACHE_DIR": "/tmp/claude/uv-cache"
+  }
 }
