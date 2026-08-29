@@ -78,10 +78,14 @@ alias reload="source ~/.zshrc"
 alias path='echo -e ${PATH//:/\\n}'
 alias ports="lsof -i -P -n | grep LISTEN"
 
-# Safety nets
-alias rm="rm -i"
-alias cp="cp -i"
-alias mv="mv -i"
+# Safety nets — only for real terminals. In non-interactive shells (Claude
+# Code / Codex agents) the -i prompt reads EOF, silently skips the operation,
+# and still exits 0, so the caller thinks the rm/cp/mv succeeded.
+if [ -t 0 ]; then
+    alias rm="rm -i"
+    alias cp="cp -i"
+    alias mv="mv -i"
+fi
 alias mkdir="mkdir -pv"
 
 # Development
