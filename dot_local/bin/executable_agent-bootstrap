@@ -10,31 +10,32 @@ for command_name in chezmoi jq codex claude; do
 done
 
 claude_plugins=(
-  'claude-code-setup@claude-plugins-official'
-  'claude-md-management@claude-plugins-official'
-  'code-review@claude-plugins-official'
-  'code-simplifier@claude-plugins-official'
-  'commit-commands@claude-plugins-official'
-  'context7@claude-plugins-official'
-  'frontend-design@claude-plugins-official'
-  'github@claude-plugins-official'
-  'playwright@claude-plugins-official'
-  'security-guidance@claude-plugins-official'
   'typescript-lsp@claude-plugins-official'
   'codex@openai-codex'
 )
 
-installed_claude=$(claude plugin list --json)
 for plugin in "${claude_plugins[@]}"; do
-  if jq -e --arg plugin "$plugin" 'map(.id) | index($plugin) != null' <<<"$installed_claude" >/dev/null; then
-    printf 'Claude plugin already installed: %s\n' "$plugin"
+  # `details` fails for both missing and unresolved installs; reinstall repairs either.
+  if claude plugin details "$plugin" >/dev/null 2>&1; then
+    printf 'Claude plugin resolves: %s\n' "$plugin"
   else
     claude plugin install --scope user "$plugin"
   fi
-  claude plugin enable "$plugin" >/dev/null 2>&1 || true
+  # Enable failures must surface; set -e aborts the bootstrap on one.
+  claude plugin enable "$plugin"
 done
 
 for plugin in \
+  'claude-code-setup@claude-plugins-official' \
+  'claude-md-management@claude-plugins-official' \
+  'code-review@claude-plugins-official' \
+  'code-simplifier@claude-plugins-official' \
+  'commit-commands@claude-plugins-official' \
+  'context7@claude-plugins-official' \
+  'frontend-design@claude-plugins-official' \
+  'github@claude-plugins-official' \
+  'playwright@claude-plugins-official' \
+  'security-guidance@claude-plugins-official' \
   'feature-dev@claude-plugins-official' \
   'explanatory-output-style@claude-plugins-official' \
   'ralph-loop@claude-plugins-official' \

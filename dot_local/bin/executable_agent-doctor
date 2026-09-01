@@ -46,6 +46,20 @@ else
   fail 'Codex could not parse the managed config'
 fi
 
+claude_plugin_json=$(claude plugin list --json 2>/dev/null) || claude_plugin_json='[]'
+for plugin in 'typescript-lsp@claude-plugins-official' 'codex@openai-codex'; do
+  if jq -e --arg p "$plugin" 'map(select(.id == $p and .enabled == true)) | length == 1' <<<"$claude_plugin_json" >/dev/null; then
+    pass "Claude plugin enabled: $plugin"
+  else
+    fail "Claude plugin not enabled: $plugin"
+  fi
+  if claude plugin details "$plugin" >/dev/null 2>&1; then
+    pass "Claude plugin resolves: $plugin"
+  else
+    fail "Claude plugin details failed: $plugin"
+  fi
+done
+
 for required_file in \
   "$HOME/.codex/AGENTS.md" \
   "$HOME/.codex/config.toml" \

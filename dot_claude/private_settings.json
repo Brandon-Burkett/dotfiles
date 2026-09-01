@@ -19,10 +19,7 @@
       "Bash(npx tsc --noEmit *)",
       "Bash(curl -s http://localhost:*)",
       "mcp__Claude_Preview__preview_screenshot",
-      "mcp__Claude_Preview__preview_console_logs",
-      "mcp__plugin_playwright_playwright__browser_snapshot",
-      "mcp__plugin_playwright_playwright__browser_take_screenshot",
-      "mcp__plugin_playwright_playwright__browser_console_messages"
+      "mcp__Claude_Preview__preview_console_logs"
     ],
     "ask": [
       "Bash(git push *)",
@@ -226,23 +223,7 @@
     ]
   },
   "enabledPlugins": {
-    "claude-code-setup@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": false,
-    "explanatory-output-style@claude-plugins-official": false,
-    "frontend-design@claude-plugins-official": true,
-    "github@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": false,
-    "vercel@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
-    "supabase@claude-plugins-official": false,
-    "security-guidance@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": false,
     "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
